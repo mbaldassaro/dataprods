@@ -1,0 +1,20 @@
+---
+title: "AlbaniaPlotly"
+author: "Michael Baldassaro"
+date: "6/25/2018"
+output: ioslides_presentation
+---
+## Albania 2017 Socialist Party Vote Share by Election District
+
+```{r alb, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE}
+require("sampler")
+require("plotly")
+require("dplyr")
+
+data <- sampler::albania
+plot_ly(x=data$ps, y=data$totalVoters, mode="markers", color=data$qarku) %>% layout(xaxis=list(range=c(0, 800)), yaxis=list(range=c(0, 800)))
+```
+
+## Thanks!
+
+
