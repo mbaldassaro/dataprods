@@ -1,0 +1,21 @@
+---
+title: "Bangladesh Voter Turnout 2008"
+author: "Michael Baldassaro"
+date: "6/25/2018"
+output: html_document
+---
+#### Bangladesh Voter Turnout 2008 General Elections
+Date Created: June 25, 2018
+
+```{r map, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+require("leaflet")
+#packageUrl <- "https://cran.r-project.org/src/contrib/Archive/geojsonio/geojsonio_0.5.0.tar.gz"
+#install.packages(packageUrl, repos=NULL, type='source')
+require("geojsonio")
+
+banglavt <- geojsonio::geojson_read("turnout2008.json", what="sp")
+pal <- colorNumeric(c("#ffffe5", "#ffffcc", "#fff7bc", "#fee391","#fec44f","#fe9929","#ec7014","#cc4c02","#bd0026","#800026"), NULL)
+leaflet(banglavt) %>% addTiles() %>% addPolygons(stroke=FALSE, smoothFactor=0.3, fillOpacity=0.7, fillColor=~pal(percentage), 
+label = ~paste0(CST_N, ": ", percentage, "%")) %>%
+addLegend(pal=pal, values=banglavt$percentage, opacity=1.0)
+```
